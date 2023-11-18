@@ -89,6 +89,10 @@ const Lab5 = (app) => {
   app.get("/a5/todos/:id/title/:title", (req, res) => {
     const { id, title } = req.params;
     const todo = todos.find((t) => t.id === parseInt(id));
+    // if (!todo) {
+    //   return res.status(404).send("Todo not found");
+    // }
+
     todo.title = title;
     res.json(todos);
   });
@@ -96,15 +100,13 @@ const Lab5 = (app) => {
   app.delete("/a5/todos/:id", (req, res) => {
     const { id } = req.params;
     const todo = todos.find((t) => t.id === parseInt(id));
-    if (!todo) {
-      res.res
-        .status(404)
-        .json({ message: `Unable to delete Todo with ID ${id}` });
+    if (todo === undefined) {
+      res.status(404).json({ message: `Unable to delete Todo with ID ${id}` });
       return;
+    } else {
+      todos.splice(todos.indexOf(todo), 1);
+      res.sendStatus(200);
     }
-
-    todos.splice(todos.indexOf(todo), 1);
-    res.sendStatus(200);
   });
 
   app.get("/a5/todos/:id/delete", (req, res) => {
