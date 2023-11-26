@@ -14,8 +14,9 @@ function UserRoutes(app) {
   };
 
   const findAllUsers = async (req, res) => {
-    const users = await dao.findAllUsers();
-    res.json(users);
+    // const users = await dao.findAllUsers();
+    // res.json(users);
+    res.json("test");
   };
 
   const findUserById = async (req, res) => {
